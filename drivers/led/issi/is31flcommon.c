@@ -131,6 +131,16 @@ void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index) {
     }
 }
 
+void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
+    if (g_scaling_buffer_update_required[index]) {
+	// Hand off the update to IS31FL_write_multi_registers
+	IS31FL_write_multi_registers(addr, ISSI_PAGE_SCALING, g_scaling_buffer[index], ISSI_SCALING_SIZE, ISSI_SCALING_TRF_SIZE, ISSI_SCL_REG_1ST);
+	// Update flags that scaling_buffer has been updated
+    g_scaling_buffer_update_required[index] = false;
+    }
+}
+
+#ifdef RGB_MATRIX_ENABLE
 // Colour is set by adjusting PWM register
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
@@ -166,11 +176,26 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
     g_scaling_buffer_update_required[led.driver] = true;
 }
 
-void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
-    if (g_scaling_buffer_update_required[index]) {
-	// Hand off the update to IS31FL_write_multi_registers
-	IS31FL_write_multi_registers(addr, ISSI_PAGE_SCALING, g_scaling_buffer[index], ISSI_SCALING_SIZE, ISSI_SCALING_TRF_SIZE, ISSI_SCL_REG_1ST);
-	// Update flags that scaling_buffer has been updated
-    g_scaling_buffer_update_required[index] = false;
+#elif defined(LED_MATRIX_ENABLE)
+// LED Matrix Specific scripts
+void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value) {
+	is31_led led = g_is31_leds[index];
+	if (value) {g_scaling_buffer[led.driver][led.v] = ISSI_SCAL_LED;
+	} else {g_scaling_buffer[led.driver][led.r] = ISSI_SCAL_LED_OFF;
+	}
+}
+
+void IS31FL_simple_set_brightness(int index, uint8_t value) {
+    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+        is31_led led = g_is31_leds[index];
+        g_pwm_buffer[led.driver][led.v]   = value;
+        g_pwm_buffer_update_required[led.driver] = true;
     }
 }
+
+void IS31FL_simple_set_brigntness_all(uint8_t value) {
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        IS31FL_simple_set_brightness(i, value);
+    }
+}
+#endif

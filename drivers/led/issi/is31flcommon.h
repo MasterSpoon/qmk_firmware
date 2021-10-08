@@ -35,12 +35,19 @@
 #include "is31fl3746.h"
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
 } __attribute__((packed)) is31_led;
+#elif defined(LED_MATRIX_ENABLE)
+typedef struct is31_led {
+    uint8_t driver : 2;
+    uint8_t v;
+} __attribute__((packed)) is31_led;
+#endif
 
 extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
 
@@ -51,6 +58,14 @@ void IS31FL_common_init(uint8_t addr, uint8_t ssr);
 void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index);
 void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index);
 
+#ifdef RGB_MATRIX_ENABLE
+// RGB Matrix Specific scripts
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue);
+#elif defined(LED_MATRIX_ENABLE)
+// LED Matrix Specific scripts
+void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value);
+void IS31FL_simple_set_brightness(int index, uint8_t value);
+void IS31FL_simple_set_brigntness_all(uint8_t value);
+#endif
