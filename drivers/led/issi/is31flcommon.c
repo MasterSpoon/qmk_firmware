@@ -142,7 +142,7 @@ void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 
 void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        IS31FL_common_set_color(i, red, green, blue);
+        IS31FL_RGB_set_color(i, red, green, blue);
     }
 }
 
