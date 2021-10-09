@@ -325,4 +325,3 @@
 #define	CS16_SW11		0xC3
 #define	CS17_SW11		0xC4
 #define	CS18_SW11		0xC5
-

@@ -39,10 +39,10 @@ uint8_t g_twi_transfer_buffer[20];
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in IS31FL_common_write_pwm_register() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS];
+uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS] = {{0}};;
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_buffer[DRIVER_COUNT][ISSI_SCALING_SIZE];
+uint8_t g_scaling_buffer[DRIVER_COUNT][ISSI_SCALING_SIZE] = {{0}};;
 bool    g_scaling_buffer_update_required[DRIVER_COUNT] = {false};
 
 // For writing of single register entry
@@ -162,7 +162,7 @@ void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 // Setup Scaling register that decides the peak current of each LED
 void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue) {
     is31_led led = g_is31_leds[index];
-
+#ifndef ISSI_MANUAL_SCALING
     if (red) {g_scaling_buffer[led.driver][led.r] = ISSI_SCAL_RED;
 	} else {g_scaling_buffer[led.driver][led.r] = ISSI_SCAL_RED_OFF;
 	}
@@ -172,7 +172,7 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
     if (blue) {g_scaling_buffer[led.driver][led.b] = ISSI_SCAL_BLUE;
 	} else {g_scaling_buffer[led.driver][led.b] = ISSI_SCAL_BLUE_OFF;
 	}
-
+#endif
     g_scaling_buffer_update_required[led.driver] = true;
 }
 
@@ -180,9 +180,12 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
 // LED Matrix Specific scripts
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value) {
 	is31_led led = g_is31_leds[index];
+#ifndef ISSI_MANUAL_SCALING
 	if (value) {g_scaling_buffer[led.driver][led.v] = ISSI_SCAL_LED;
-	} else {g_scaling_buffer[led.driver][led.r] = ISSI_SCAL_LED_OFF;
+	} else {g_scaling_buffer[led.driver][led.v] = ISSI_SCAL_LED_OFF;
 	}
+#endif
+	g_scaling_buffer_update_required[led.driver] = true;
 }
 
 void IS31FL_simple_set_brightness(int index, uint8_t value) {
