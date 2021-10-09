@@ -1,0 +1,26 @@
+8ms refresh
+rainbow - 410
+leds off - 530
+num layer - 350
+
+16ms refresh 
+rainbow - 400
+leds off - 535
+num layer - 350
+
+32ms refresh
+rainbow - 470
+leds off - 540
+num layer - 410
+
+
+230400 baud
+rainbow - 400
+leds off - 535
+num layer - 350
+
+460800 baud
+rainbow - 440
+leds off - 570
+num layer - 365
+

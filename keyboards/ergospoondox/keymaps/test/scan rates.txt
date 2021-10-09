@@ -1,0 +1,11 @@
+finding memory size
+leds off - 568
+rainbow - 439
+num layer - 366
+caps + num - 318
+
+Manually adding array size
+leds off - 567
+rainbow - 438
+num layer - 368
+caps + num - 320
