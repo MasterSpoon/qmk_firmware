@@ -84,11 +84,13 @@ bool IS31FL_write_multi_registers(uint8_t addr, uint8_t *source_buffer, uint8_t 
     return true;
 }
 
+#ifdef ISSI_COMMANDREGISTER_WRITELOCK
 void IS31FL_unlock_register(uint8_t addr, uint8_t page){
 	// unlock the command register and select Page to write
 	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, ISSI_REGISTER_UNLOCK);
 	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER, page);
 }	
+#endif
 
 void IS31FL_common_init(uint8_t addr, uint8_t ssr) {
 	// Setup phase, need to take out of software shutdown and configure
@@ -153,6 +155,10 @@ void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index) {
 	#endif
 	// Hand off the update to IS31FL_write_multi_registers
 	IS31FL_write_multi_registers(addr, g_pwm_buffer[index], ISSI_MAX_LEDS, ISSI_PWM_TRF_SIZE, ISSI_PWM_REG_1ST);
+	#ifdef ISSI_REG_UPDATE
+	// Write update register to save changes
+	IS31FL_write_single_register(addr, ISSI_REG_UPDATE, ISSI_UPDATE);	
+	#endif
 	// Update flags that pwm_buffer has been updated
     g_pwm_buffer_update_required[index] = false;
     }
@@ -166,6 +172,10 @@ void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
 	#endif
 	// Hand off the update to IS31FL_write_multi_registers
 	IS31FL_write_multi_registers(addr, g_scaling_buffer[index], ISSI_SCALING_SIZE, ISSI_SCALING_TRF_SIZE, ISSI_SCL_REG_1ST);
+	#ifdef ISSI_REG_UPDATE
+	// Write update register to save changes
+	IS31FL_write_single_register(addr, ISSI_REG_UPDATE, ISSI_UPDATE);	
+	#endif
 	// Update flags that scaling_buffer has been updated
     g_scaling_buffer_update_required[index] = false;
     }
