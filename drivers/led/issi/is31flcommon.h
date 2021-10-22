@@ -45,11 +45,19 @@ typedef struct is31_led {
     uint8_t r;
     uint8_t g;
     uint8_t b;
+	#ifdef ISSI_MANUAL_SCALING
+	uint8_t rs;
+    uint8_t gs;
+    uint8_t bs;
+	#endif
 } __attribute__((packed)) is31_led;
 #elif defined(LED_MATRIX_ENABLE)
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t v;
+	#ifdef ISSI_MANUAL_SCALING
+    uint8_t s;
+	#endif
 } __attribute__((packed)) is31_led;
 #endif
 

@@ -24,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
 #define MANUFACTURER MasterSpoon
-#define PRODUCT ergospoondox
+#define PRODUCT fourby
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -40,42 +40,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { A4, A10, F1, A3, A2 }
-#define MATRIX_COL_PINS { A9, A8, B0, A7, A5, A6, A0, A1, B3, F0, B7, B6, B5, B4  }
 
-// #define UNUSED_PINS
+#define DIRECT_PINS { { A8, C6, A13, B7 }, { B1, B2, B6, B8 }, { B0, A2, B9, A0 }, { A5, A4, A3, A1 } }
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* I2C Config */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOA
-#define I2C1_SCL 13
-#define I2C1_SCL_PAL_MODE 4
-#define I2C1_SDA_BANK GPIOA
-#define I2C1_SDA 14
-#define I2C1_SDA_PAL_MODE 4
-
-/* I2c Timings at 170MHz - Fast mode 400KHz */
-// #define I2C1_TIMINGR_PRESC 1U
-// #define I2C1_TIMINGR_SCLDEL 8U
-// #define I2C1_TIMINGR_SDADEL 0U
-// #define I2C1_TIMINGR_SCLH 45U
-// #define I2C1_TIMINGR_SCLL 155U
-
-/* I2c Timings at 170MHz - Fast mode plus 1MHz */
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 8U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 33U
-#define I2C1_TIMINGR_SCLL 114U
-
-/* LED controller settings */
-#define IS31FL3743A
-#define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 66
-// #define ISSI_MANUAL_SCALING
+/* WS2812 SPI driver config */
+#define DRIVER_LED_TOTAL 24
+#define RGBLED_NUM 24
+#define WS2812_SPI SPID1            // default: SPID1
+#define RGB_DI_PIN B5              // MOSI pin
+#define WS2812_SPI_MOSI_PAL_MODE 0  // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_SCK_PIN B3      // Required for F072, may be for others -- SCK pin, see the respective datasheet for the appropriate values for your MCU. default: unspecified
+#define WS2812_SPI_SCK_PAL_MODE 0   // SCK pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
