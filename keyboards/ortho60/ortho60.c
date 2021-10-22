@@ -91,6 +91,14 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS14_SW9,	CS15_SW9,	CS13_SW9}	// D66	
 };
 
+#ifdef ISSI_MANUAL_SCALING
+const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+    {5, 120, 155, 167},	
+    {7, 120, 155, 167},	
+    {59, 120, 155, 167}	
+};	
+#endif
+
 led_config_t g_led_config = { {
 // Key Matrix to LED Index
         {0,1,2,3,4,5,6,7,8,9,10,11,12,13},
