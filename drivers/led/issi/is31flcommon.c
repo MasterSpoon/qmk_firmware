@@ -168,6 +168,7 @@ void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index) {
 void IS31FL_set_manual_scaling_buffer(void) {
 	for (int i = 0; i < ISSI_MANUAL_SCALING; i++) {
 	is31_led scale = g_is31_scaling[i];	
+	if (scale.driver >= 0 && scale.driver < DRIVER_LED_TOTAL) {
 	is31_led led = g_is31_leds[scale.driver];
 
 	#ifdef RGB_MATRIX_ENABLE	
@@ -179,6 +180,7 @@ void IS31FL_set_manual_scaling_buffer(void) {
 	#endif
     g_scaling_buffer_update_required[led.driver] = true;
     }
+}
 }
 #endif
 
