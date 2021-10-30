@@ -239,8 +239,9 @@ Configure the hardware via your `config.h`:
 
 
 Defaults
+
 | Variable | IS31FL3742A | IS31FL3743A | IS31FL3745 | IS31FL3746 |
-|---------|--------------|-------------|------------|------------|
+|----------|-------------|-------------|------------|------------|
 | `DRIVER_ADDR_1` | 0b0110000 | 0b0100000 | 0b0100000 | 0b1100000 |
 | `ISSI_SSR_1` | 0x00 | 0x00 / 0x60 | 0x00 / 0xC0 | 0x00 |
 | `ISSI_SSR_<2-4>` | 0x00 | 0x40 | 0x80 | 0x00 |
@@ -282,7 +283,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 
 Where `CSx_SWx` is the location of the LED in the matrix defined by the datasheet. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
-`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_<colour>` however if needed you can set different scaling for any that may need different settings. In `config.h` set how many LED's you want to manually set scaling for.
+`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_<colour>`. In `config.h` set how many LED's you want to manually set scaling for.
 Eg `#define ISSI_MANUAL_SCALING 3`
 
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:

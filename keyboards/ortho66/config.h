@@ -75,7 +75,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS31FL3743A
 #define DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 66
-#define ISSI_MANUAL_SCALING 15
+// #define ISSI_MANUAL_SCALING 15
+#define ISSI_SCAL_RED 190
+// #define ISSI_SCAL_GREEN 255
+// #define ISSI_SCAL_BLUE 255
+
+// #define DEBUG_MATRIX_SCAN_RATE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

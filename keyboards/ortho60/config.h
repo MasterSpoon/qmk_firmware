@@ -72,10 +72,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SCLL 114U
 
 /* LED controller settings */
-#define IS31FL3743A
+// #define IS31FL3742A // 180 - 60 RGB
+#define IS31FL3743A // 198 LED - 66 RGB
+// #define IS31FL3745 // 144 LED - 48 RGB
+// #define IS31FL3746A // 72 LED - 28 RGB
+
 #define DRIVER_COUNT 1
+
+#ifdef IS31FL3742A
+#define DRIVER_LED_TOTAL 60
+#elif defined(IS31FL3743A)
 #define DRIVER_LED_TOTAL 66
-#define ISSI_MANUAL_SCALING 3
+#elif defined(IS31FL3745)
+#define DRIVER_LED_TOTAL 48
+#elif defined(IS31FL3746A)
+#define DRIVER_LED_TOTAL 28
+#endif
+
+// #define ISSI_MANUAL_SCALING 15
+#define ISSI_SCAL_RED 190
+// #define ISSI_SCAL_GREEN 200
+// #define ISSI_SCAL_BLUE 200
+
+// #define DEBUG_MATRIX_SCAN_RATE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

@@ -33,6 +33,10 @@
 #include "is31fl3745.h"
 #elif defined(IS31FL3746A)
 #include "is31fl3746.h"
+#elif defined(IS31FL3236A)
+#include "is31fl3236.h"
+#elif defined(IS31FL3246)
+#include "is31fl3246.h"
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

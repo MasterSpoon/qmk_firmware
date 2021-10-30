@@ -33,7 +33,7 @@
 
 #define STM32G4xx_MCUCONF
 #define STM32G431_MCUCONF
-// #define STM32G441_MCUCONF
+#define STM32G441_MCUCONF
 
 /*
  * HAL driver system settings.
@@ -41,7 +41,8 @@
 #define STM32_NO_INIT                       FALSE
 #define STM32_VOS                           STM32_VOS_RANGE1
 #define STM32_PWR_CR2                       (PWR_CR2_PLS_LEV0)
-#define STM32_PWR_CR3                       (PWR_CR3_EIWF)
+#undef STM32_PWR_CR3
+#define STM32_PWR_CR3 (PWR_CR3_EIWF | PWR_CR3_UCPD_DBDIS)
 #define STM32_PWR_CR4                       (0U)
 #define STM32_HSI16_ENABLED                 TRUE
 #define STM32_HSI48_ENABLED                 TRUE

@@ -68,7 +68,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 ---
 ### IS31FLCOMMON :id=is31flcommon
 
-There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
+There is basic support for addressable LED matrix lighting with a selection of I2C ISSI Lumissil LED controllers through a shared common driver. To enable it, add this to your `rules.mk`:
 
 ```makefile
 LED_MATRIX_ENABLE = yes
@@ -86,10 +86,10 @@ Configure the hardware via your `config.h`:
 | `IS31FL3746A` | If using IS31FL3746A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | |
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
-| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Optional) Address for the first RGB driver | |
-| `DRIVER_ADDR_<N>` | (Required) Address for the additional RGB drivers | |
+| `DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many LED lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Optional) Address for the first LED driver | |
+| `DRIVER_ADDR_<N>` | (Required) Address for the additional LED drivers | |
 | `ISSI_SSR_<N>` | (Optional) Configuration for the Spread Spectrum Register | |
 | `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
 | `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
@@ -102,8 +102,9 @@ Configure the hardware via your `config.h`:
 
 
 Defaults
+
 | Variable | IS31FL3742A | IS31FL3743A | IS31FL3745 | IS31FL3746 |
-|---------|--------------|-------------|------------|------------|
+|----------|-------------|-------------|------------|------------|
 | `DRIVER_ADDR_1` | 0b0110000 | 0b0100000 | 0b0100000 | 0b1100000 |
 | `ISSI_SSR_1` | 0x00 | 0x00 / 0x60 | 0x00 / 0xC0 | 0x00 |
 | `ISSI_SSR_<2-4>` | 0x00 | 0x40 | 0x80 | 0x00 |
@@ -144,7 +145,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 
 Where `CSx_SWx` is the location of the LED in the matrix defined by the datasheet. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
-`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_LED` however if needed you can set different scaling for any that may need different settings. In `config.h` set how many LED's you want to manually set scaling for.
+`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_LED`. In `config.h` set how many LED's you want to manually set scaling for.
 Eg `#define ISSI_MANUAL_SCALING 3`
 
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
