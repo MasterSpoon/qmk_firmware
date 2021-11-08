@@ -232,7 +232,7 @@ void IS31FL_simple_set_brigntness_all(uint8_t value) {
 #ifdef ISSI_DEBUG
 #include "print.h"
 
-uint8_t open_short_buffer[ISSI_OPEN_SHORT_SIZE];
+uint8_t open_short_buffer;
 
 #define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
 #define BYTE_TO_BINARY(byte)  \
@@ -250,28 +250,32 @@ void IS31FL_open_short_check(uint8_t addr, uint8_t index, uint8_t config) {
     IS31FL_unlock_register(addr, ISSI_PAGE_FUNCTION);
     // Set Golbal Current Control Register to low output
     IS31FL_write_single_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT_TEST);
-	// Remove Pull up & Down for SWx CSy
+    // Remove Pull up & Down for SWx CSy
     IS31FL_write_single_register(addr, ISSI_REG_PULLDOWNUP, ISSI_PULLDOWNUP_TEST);
-	// Turn on all LED's
-	IS31FL_RGB_set_color_all(255,255,255);
-	IS31FL_common_update_pwm_register(DRIVER_ADDR_1, index);
-	// Wait 10ms to ensure settings have updated
+    // Turn on all LED's
+#ifdef RGB_MATRIX_ENABLE
+    IS31FL_RGB_set_color_all(255,255,255);
+#elif defined(LED_MATRIX_ENABLE)
+    IS31FL_simple_set_brigntness_all(255);
+#endif
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, index);
+    // Wait 10ms to ensure settings have updated
     wait_ms(10);
 
     // Unlock the command register & select Function Register
     IS31FL_unlock_register(addr, ISSI_PAGE_FUNCTION);
-	// Trigger Open/Short detection in Configuration Register
-	IS31FL_write_single_register(addr, ISSI_REG_CONFIGURATION, config);
-	// Wait 10ms to ensure scans are completed
+    // Trigger Open/Short detection in Configuration Register
+    IS31FL_write_single_register(addr, ISSI_REG_CONFIGURATION, config);
+    // Wait 10ms to ensure scans are completed
     wait_ms(10);
 
-	// Queue up the Function page ready to read
+    // Queue up the Function page ready to read
     IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
-	// Read the Open / Short registers
-	for (uint8_t i = 0; i < ISSI_OPEN_SHORT_SIZE; i++) {
-		i2c_readReg(addr << 1 | 0x01, ISSI_OPEN_SHORT_1ST + i, &open_short_buffer[i], 1, ISSI_TIMEOUT);
-		uprintf("Register: 0x%02x, ", ISSI_OPEN_SHORT_1ST + i);
-		uprintf("Result: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(open_short_buffer[i]));
+    // Read the Open / Short registers
+    for (uint8_t i = 0; i < ISSI_OPEN_SHORT_SIZE; i++) {
+        i2c_readReg(addr << 1 | 0x01, ISSI_OPEN_SHORT_1ST + i, &open_short_buffer, 1, ISSI_TIMEOUT);
+        uprintf("Register: %02x, ", ISSI_OPEN_SHORT_1ST + i);
+        uprintf("Result: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(open_short_buffer));
     }
 
     // Unlock the command register & select Function Register
@@ -283,12 +287,12 @@ void IS31FL_open_short_check(uint8_t addr, uint8_t index, uint8_t config) {
 }
 
 void IS31FL_open_check(uint8_t addr, uint8_t index) {
-	print("ISSI Open Check\n");
-	IS31FL_open_short_check(addr, index, ISSI_CONFIGURATION_OPEN);
+    print("ISSI Open Check\n");
+    IS31FL_open_short_check(addr, index, ISSI_CONFIGURATION_OPEN);
 }
 
 void IS31FL_short_check(uint8_t addr, uint8_t index) {
-	print("ISSI Short Check\n");
-	IS31FL_open_short_check(addr, index, ISSI_CONFIGURATION_SHORT);
+    print("ISSI Short Check\n");
+    IS31FL_open_short_check(addr, index, ISSI_CONFIGURATION_SHORT);
 }
 #endif
