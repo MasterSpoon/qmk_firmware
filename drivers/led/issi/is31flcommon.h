@@ -55,6 +55,12 @@ extern const is31_led __flash g_is31_scaling[];
 void                          IS31FL_set_manual_scaling_buffer(void);
 #endif
 
+#ifdef ISSI_DEBUG
+void IS31FL_open_short_check(uint8_t addr, uint8_t index, uint8_t config);
+void IS31FL_open_check(uint8_t addr, uint8_t index);
+void IS31FL_short_check(uint8_t addr, uint8_t index);
+#endif
+
 extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
 
 void IS31FL_write_single_register(uint8_t addr, uint8_t reg, uint8_t data);

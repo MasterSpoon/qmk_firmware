@@ -114,6 +114,20 @@
 #define ISSI_PWM_REG_1ST 0x01
 #define ISSI_SCL_REG_1ST 0x01
 
+// Open Short settings
+#ifdef ISSI_DEBUG
+#define ISSI_OPEN_SHORT_1ST 0x03
+#define ISSI_OPEN_SHORT_SIZE 0x21
+#define ISSI_CONFIGURATION_OPEN 0x03
+#define ISSI_CONFIGURATION_SHORT 0x05
+#ifndef ISSI_GLOBALCURRENT_TEST
+#    define ISSI_GLOBALCURRENT_TEST 0x0F
+#endif
+#ifndef ISSI_PULLDOWNUP_TEST
+#    define ISSI_PULLDOWNUP_TEST 0x00
+#endif
+#endif
+
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION
 // It will always count from 0x00 to (ISSI_MAX_LEDS - 1)

@@ -43,10 +43,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A4, A10, F1, A3, A2 }
 #define MATRIX_COL_PINS { A9, A8, B0, A7, A5, A6, A0, A1, B3, F0, B7, B6, B5, B4  }
 
-// #define UNUSED_PINS
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+/* Change USB Polling Rate to 1000hz */
+#define USB_POLLING_INTERVAL_MS 1
+// #define DEBUG_MATRIX_SCAN_RATE
 
 #ifdef RGB_MATRIX_ENABLE
 /* I2C Config */
@@ -78,8 +80,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define ISSI_SCAL_GREEN 255
 // #define ISSI_SCAL_BLUE 255
 #endif
-
-// #define DEBUG_MATRIX_SCAN_RATE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

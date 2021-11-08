@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define CH_CFG_ST_FREQUENCY 10000
+#define CH_CFG_ST_FREQUENCY 100000
 
 #define CH_CFG_OPTIMIZE_SPEED FALSE
 
