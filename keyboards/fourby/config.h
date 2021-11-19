@@ -44,14 +44,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS { { A8, C6, A13, B7 }, { B1, B2, B6, B8 }, { B0, A2, B9, A0 }, { A5, A4, A3, A1 } }
 
 #ifdef RGB_MATRIX_ENABLE
-/* WS2812 SPI driver config */
+/* WS2812 PWM driver config */
 #define DRIVER_LED_TOTAL 24
 #define RGBLED_NUM 24
-#define WS2812_SPI SPID1            // default: SPID1
-#define RGB_DI_PIN B5              // MOSI pin
-#define WS2812_SPI_MOSI_PAL_MODE 0  // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
-#define WS2812_SPI_SCK_PIN B3      // Required for F072, may be for others -- SCK pin, see the respective datasheet for the appropriate values for your MCU. default: unspecified
-#define WS2812_SPI_SCK_PAL_MODE 0   // SCK pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define RGB_DI_PIN B5
+
+
+#define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
+#define WS2812_PWM_CHANNEL 2  // default: 2
+#define WS2812_PWM_PAL_MODE 1  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+//#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM3_UP // DMAMUX configuration for TIMx_UP -- only required if your MCU has a DMAMUX peripheral, see the respective reference manual for the appropriate values for your MCU.
+
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

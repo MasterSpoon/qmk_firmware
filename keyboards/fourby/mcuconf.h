@@ -192,7 +192,7 @@
  */
 #define STM32_PWM_USE_TIM1                  FALSE
 #define STM32_PWM_USE_TIM2                  FALSE
-#define STM32_PWM_USE_TIM3                  FALSE
+#define STM32_PWM_USE_TIM3                  TRUE
 #define STM32_PWM_USE_TIM4                  FALSE
 #define STM32_PWM_USE_TIM14                 FALSE
 #define STM32_PWM_USE_TIM15                 FALSE
@@ -234,11 +234,7 @@
 /*
  * SPI driver system settings.
  */
-#ifdef RGB_MATRIX_ENABLE
-#define STM32_SPI_USE_SPI1                  TRUE
-#else
 #define STM32_SPI_USE_SPI1                  FALSE	
-#endif
 #define STM32_SPI_USE_SPI2                  FALSE
 #define STM32_SPI_USE_SPI3                  FALSE
 #define STM32_SPI_SPI1_RX_DMA_STREAM        STM32_DMA_STREAM_ID_ANY
