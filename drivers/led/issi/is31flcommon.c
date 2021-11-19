@@ -278,12 +278,8 @@ void IS31FL_open_short_check(uint8_t addr, uint8_t index, uint8_t config) {
         uprintf("Result: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(open_short_buffer));
     }
 
-    // Unlock the command register & select Function Register
-    IS31FL_unlock_register(addr, ISSI_PAGE_FUNCTION);
-    // Reset registers back to their normal states
-    IS31FL_write_single_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION);
-    IS31FL_write_single_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
-    IS31FL_write_single_register(addr, ISSI_REG_PULLDOWNUP, ISSI_PULLDOWNUP);
+    // Reset everything to startup config
+    IS31FL_common_init(addr, index);
 }
 
 void IS31FL_open_check(uint8_t addr, uint8_t index) {
