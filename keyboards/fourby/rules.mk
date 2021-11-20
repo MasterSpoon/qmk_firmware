@@ -24,3 +24,7 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 WS2812_DRIVER = pwm
+
+LTO_ENABLE = yes
+DEBOUNCE_TYPE = asym_eager_defer_pk
+OPT = 3

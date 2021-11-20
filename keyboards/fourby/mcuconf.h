@@ -43,7 +43,6 @@
 #define STM32_VOS                           STM32_VOS_RANGE1
 #define STM32_PWR_CR2                       (STM32_PVDRT_LEV0 | STM32_PVDFT_LEV0 | STM32_PVDE_DISABLED)
 #define STM32_PWR_CR3                       (PWR_CR3_EIWUL)
-#define STM32_SYSCFG_CFGR1                  (SYSCFG_CFGR1_UCPD1_STROBE)
 #define STM32_PWR_CR4                       (0U)
 #define STM32_PWR_PUCRA                     (0U)
 #define STM32_PWR_PDCRA                     (0U)

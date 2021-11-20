@@ -16,6 +16,11 @@
 
 #include "fourby.h"
 
+// Disable pulldown on PA8
+void board_init(void) {
+  SYSCFG->CFGR1  |= SYSCFG_CFGR1_UCPD1_STROBE;
+}
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
