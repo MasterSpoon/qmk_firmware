@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER MasterSpoon
 #define PRODUCT fourby
 
+/* Change USB Polling Rate to 1000hz */
+#define USB_POLLING_INTERVAL_MS 1
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4

@@ -34,3 +34,5 @@ led_config_t g_led_config = { {
 	4, 2, 4, 2, 4, 4, 4, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 2, 4
 } };
 #endif
+
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
