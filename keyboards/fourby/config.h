@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS { { A8, C6, A13, B7 }, { B1, B2, B6, B8 }, { B0, A2, B9, A0 }, { A5, A4, A3, A1 } }
 
 #ifdef RGB_MATRIX_ENABLE
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 /* WS2812 PWM driver config */
 #define DRIVER_LED_TOTAL 24
 #define RGBLED_NUM 24
